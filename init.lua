@@ -46,8 +46,12 @@ vim.keymap.set('n', '<esc>', ':noh<cr>', { silent = true })
 -- Save
 vim.keymap.set('n', '<C-s>', ':w<cr>>')
 
+-- Select next file in quickfix list
+vi.keymap.set('n', '<C-Tab>', ':cnext')
+
 -- html format  https://github.com/threedaymonk/htmlbeautifier
 vim.keymap.set('n', ',html', ':! htmlbeautifier %<CR>')
+
 
 -- <---User Defined Commands--->
 
