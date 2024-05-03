@@ -111,7 +111,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 -- <---Plugins--->
 
-
 -- Install lazy.nvim
 
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
@@ -129,21 +128,17 @@ vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
 
-
     -- Vim Wiki
-	
 	{ 'vimwiki/vimwiki' },
 
 
     -- "gc" to comment visual regions/lines
-	
 	{ 'numToStr/Comment.nvim', opts = {} },
 
 
     -- Whichkey
-	
 	{
-		'folke/which-key.nvim',
+	    'folke/which-key.nvim',
 		opts = {
 			show_keys = false,
 			triggers_blacklist = {
@@ -154,7 +149,6 @@ require('lazy').setup({
 
 
     -- Colour Scheme
-	
 	{
 		'f4z3r/gruvbox-material.nvim',
 		name = 'gruvbox-material',
@@ -170,7 +164,6 @@ require('lazy').setup({
 
 
     -- Treesitter, Syntax Highlighting
-	
 	{
 		'nvim-treesitter/nvim-treesitter',
 		build = ':TSUpdate',
@@ -188,7 +181,6 @@ require('lazy').setup({
 
 
     -- Lualine
-	
 	{
 		'nvim-lualine/lualine.nvim',
 		opts = {
@@ -203,7 +195,6 @@ require('lazy').setup({
 
 
     -- Telescope
-    
     {
     'nvim-telescope/telescope.nvim', tag = '0.1.6',
       dependencies = { 'nvim-lua/plenary.nvim' }
@@ -211,7 +202,6 @@ require('lazy').setup({
 
 
     -- ToggleTerm
-	
 	{
 		'akinsho/toggleterm.nvim',
 		version = '*',
@@ -221,7 +211,6 @@ require('lazy').setup({
 	},
 
     -- Flatten, Stops nested sessions 	
-	
 	{
 		'willothy/flatten.nvim',
 		lazy = false,
@@ -315,6 +304,7 @@ vim.api.nvim_set_keymap(
 	'<cmd>lua _vifm_toggle()<CR>',
 	{ noremap = true, silent = true, desc = '[v]ifm file manager' }
 )
+
 
 -- <---Telescope Setup--->
 
