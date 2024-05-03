@@ -30,7 +30,6 @@ vim.g.autoformat = true
 vim.opt.linebreak = true
 vim.opt.wrap = false
 
--- vim.opt.path:append '**'
 vim.opt.wildmenu = true
 
 vim.opt.autoread = true
@@ -38,6 +37,7 @@ vim.opt.virtualedit = 'block'
 vim.opt.undofile = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
+
 
 -- <---Key Bindings--->
 
@@ -66,14 +66,15 @@ vim.keymap.set('n', ',html', ':! htmlbeautifier %<CR>')
 
 -- <---User Defined Commands--->
 
---command Vimrc :e ~/.vimrc
+-- Edit this file
 vim.api.nvim_create_user_command('Init', ':e ~/.config/mnvim/init.lua', {})
 
---command Zshrc :e ~/.zshrc
+-- Edit .zshrc
 vim.api.nvim_create_user_command('Zshrc', ':e ~/.zshrc', {})
 
---command Template :read template.html
+-- Add html template from CWD
 vim.api.nvim_create_user_command('Template', ':read template.html', {})
+
 
 -- <---Autocompletion--->
 
@@ -86,12 +87,15 @@ vim.cmd [[inoremap < <><left>]]
 vim.cmd [[inoremap {<CR> {<CR>}<ESC>O]]
 vim.cmd [[inoremap {;<CR> {<CR>};<ESC>O]]
 
+
 -- <---Spell checker--->
+
 vim.opt.spell = true
 vim.opt.spelllang = 'en_gb'
 
 -- Toggle spell checker
 vim.keymap.set('n', '<leader>s', ':set spell!<cr>')
+
 
 -- <---Highlight on yank--->
 
@@ -104,9 +108,12 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 	pattern = '*',
 })
 
+
 -- <---Plugins--->
 
+
 -- Install lazy.nvim
+
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
 	vim.fn.system {
@@ -122,13 +129,19 @@ vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
 
-	-- Vim Wiki
+
+    -- Vim Wiki
+	
 	{ 'vimwiki/vimwiki' },
 
-	-- "gc" to comment visual regions/lines
+
+    -- "gc" to comment visual regions/lines
+	
 	{ 'numToStr/Comment.nvim', opts = {} },
 
-	-- Whichkey
+
+    -- Whichkey
+	
 	{
 		'folke/which-key.nvim',
 		opts = {
@@ -139,7 +152,9 @@ require('lazy').setup({
 		},
 	},
 
-	-- Colour Scheme
+
+    -- Colour Scheme
+	
 	{
 		'f4z3r/gruvbox-material.nvim',
 		name = 'gruvbox-material',
@@ -152,7 +167,10 @@ require('lazy').setup({
 			vim.cmd 'colorscheme gruvbox-material'
 		end,
 	},
-    -- Syntax Highlighting
+
+
+    -- Treesitter, Syntax Highlighting
+	
 	{
 		'nvim-treesitter/nvim-treesitter',
 		build = ':TSUpdate',
@@ -168,6 +186,9 @@ require('lazy').setup({
 		end,
 	},
 
+
+    -- Lualine
+	
 	{
 		'nvim-lualine/lualine.nvim',
 		opts = {
@@ -180,14 +201,17 @@ require('lazy').setup({
 		},
 	},
 
--- Telescope
+
+    -- Telescope
+    
     {
     'nvim-telescope/telescope.nvim', tag = '0.1.6',
--- or                              , branch = '0.1.x',
       dependencies = { 'nvim-lua/plenary.nvim' }
     },
 
-	-- ToggleTerm
+
+    -- ToggleTerm
+	
 	{
 		'akinsho/toggleterm.nvim',
 		version = '*',
@@ -195,6 +219,9 @@ require('lazy').setup({
 			shell = 'zsh',
 		},
 	},
+
+    -- Flatten, Stops nested sessions 	
+	
 	{
 		'willothy/flatten.nvim',
 		lazy = false,
@@ -266,7 +293,11 @@ require('lazy').setup({
 			}
 		end,
 	},
-}, {})
+
+	-- Plugins Above this line
+}, {}) -- Closes require('lazy').setup({
+	-- Configs Below this line
+
 
 -- <---Toggle Term Windows--->
 
