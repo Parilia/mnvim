@@ -14,10 +14,21 @@ vim.opt.scrolloff = 8
 vim.opt.autoindent = true
 vim.opt.copyindent = true
 vim.opt.smartindent = true
+vim.o.breakindent = true
 
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
+
+vim.wo.signcolumn = 'yes'
+vim.opt.signcolumn = 'yes'
+
+vim.opt.grepprg = 'rg --vimgrep'
+vim.opt.grepformat = '%f:%l:%c:%m'
+vim.opt.formatoptions = 'jcroqlnt'
+vim.g.autoformat = true
+vim.opt.linebreak = true
+vim.opt.wrap = false
 
 -- vim.opt.path:append '**'
 vim.opt.wildmenu = true
@@ -35,7 +46,7 @@ vim.keymap.set('n', '<Tab>', ':bnext <CR>') -- Tab goes to next buffer
 vim.keymap.set('n', '<S-Tab>', ':bprevious <CR>') -- Shift+Tab goes to previous buffer
 
 -- Soft word-wrap
-vim.keymap.set('n', '<leader>lb', ':set linebreak!<cr>')
+vim.keymap.set('n', '<leader>lb', ':set wrap!<cr>')
 
 -- Replace in whole file, :%s/foo/bar/g
 vim.keymap.set('n', '<leader>r', ':%s/')
@@ -47,7 +58,7 @@ vim.keymap.set('n', '<esc>', ':noh<cr>', { silent = true })
 vim.keymap.set('n', '<C-s>', ':w<cr>>')
 
 -- Select next file in quickfix list
-vi.keymap.set('n', '<C-Tab>', ':cnext')
+vim.keymap.set('n', '<C-Tab>', ':cnext')
 
 -- html format  https://github.com/threedaymonk/htmlbeautifier
 vim.keymap.set('n', ',html', ':! htmlbeautifier %<CR>')
