@@ -16,8 +16,8 @@ vim.opt.copyindent = true
 vim.opt.smartindent = true
 vim.o.breakindent = true
 
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 
 vim.wo.signcolumn = 'yes'
@@ -38,6 +38,7 @@ vim.opt.undofile = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
+vim.o.clipboard = 'unnamedplus'
 
 -- <---Key Bindings--->
 
@@ -76,18 +77,6 @@ vim.api.nvim_create_user_command('Zshrc', ':e ~/.zshrc', {})
 vim.api.nvim_create_user_command('Template', ':read template.html', {})
 
 
--- <---Autocompletion--->
-
-vim.cmd [[inoremap " ""<left>]]
-vim.cmd [[inoremap ' ''<left>]]
-vim.cmd [[inoremap ( ()<left>]]
-vim.cmd [[inoremap [ []<left>]]
-vim.cmd [[inoremap { {}<left>]]
-vim.cmd [[inoremap < <><left>]]
-vim.cmd [[inoremap {<CR> {<CR>}<ESC>O]]
-vim.cmd [[inoremap {;<CR> {<CR>};<ESC>O]]
-
-
 -- <---Spell checker--->
 
 vim.opt.spell = true
@@ -108,6 +97,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 	pattern = '*',
 })
 
+vim.api.nvim_set_hl(0, 'YankHighlight', { bg = '#a9b665' })
 
 -- <---Plugins--->
 
@@ -128,17 +118,15 @@ vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
 
-    -- Vim Wiki
+	-- Vim Wiki
 	{ 'vimwiki/vimwiki' },
 
-
-    -- "gc" to comment visual regions/lines
+	-- "gc" to comment visual regions/lines
 	{ 'numToStr/Comment.nvim', opts = {} },
 
-
-    -- Whichkey
+	-- Whichkey
 	{
-	    'folke/which-key.nvim',
+		'folke/which-key.nvim',
 		opts = {
 			show_keys = false,
 			triggers_blacklist = {
@@ -147,23 +135,39 @@ require('lazy').setup({
 		},
 	},
 
-
-    -- Colour Scheme
+	-- Colour Scheme
 	{
 		'f4z3r/gruvbox-material.nvim',
 		name = 'gruvbox-material',
 		lazy = false,
 		priority = 1000,
-		config = function()
-			vim.g.gruvbox_material_disable_italic_comment = 1
-			vim.g.gruvbox_material_transparent_background = 1
-
-			vim.cmd 'colorscheme gruvbox-material'
-		end,
+		opts = {
+			italics = false, -- enable italics in general
+			comments = { italics = false },
+			background = { transparent = true }, -- sets bg to transparent
+			float = {
+				force_background = false, -- force background on floats even when background.transparent is set
+				background_color = nil, -- set color for float backgrounds. If nil, uses the default color set
+				-- by the colorscheme
+			},
+		},
 	},
 
 
-    -- Treesitter, Syntax Highlighting
+-- <---Autocompletion--->
+	{
+		'windwp/nvim-ts-autotag',
+		opts = {},
+	},
+	{
+		'windwp/nvim-autopairs',
+		event = 'InsertEnter',
+		opts = {
+		  disable_filetype = { 'TelescopePrompt', 'spectre_panel', 'vim' }
+    },
+	},
+
+-- <---Syntax Highlighting--->
 	{
 		'nvim-treesitter/nvim-treesitter',
 		build = ':TSUpdate',
@@ -180,7 +184,6 @@ require('lazy').setup({
 	},
 
 
-    -- Lualine
 	{
 		'nvim-lualine/lualine.nvim',
 		opts = {
@@ -193,15 +196,30 @@ require('lazy').setup({
 		},
 	},
 
+	
+	{
+		'nvim-telescope/telescope.nvim',
+		tag = '0.1.6',
+		dependencies = { 'nvim-lua/plenary.nvim' },
+	},
 
-    -- Telescope
-    {
-    'nvim-telescope/telescope.nvim', tag = '0.1.6',
-      dependencies = { 'nvim-lua/plenary.nvim' }
-    },
+	
 
+	{
+		'lewis6991/gitsigns.nvim',
+		opts = {
+			signs = {
+				add = { text = '+' },
+				change = { text = '~' },
+				delete = { text = '_' },
+				topdelete = { text = '‾' },
+				changedelete = { text = '~' },
+			},
+		},
+	},
 
-    -- ToggleTerm
+-- <---Toggle Term--->
+
 	{
 		'akinsho/toggleterm.nvim',
 		version = '*',
@@ -210,7 +228,7 @@ require('lazy').setup({
 		},
 	},
 
-    -- Flatten, Stops nested sessions 	
+	-- Flatten, Stops nested sessions
 	{
 		'willothy/flatten.nvim',
 		lazy = false,
@@ -285,8 +303,7 @@ require('lazy').setup({
 
 	-- Plugins Above this line
 }, {}) -- Closes require('lazy').setup({
-	-- Configs Below this line
-
+-- Configs Below this line
 
 -- <---Toggle Term Windows--->
 
@@ -304,7 +321,6 @@ vim.api.nvim_set_keymap(
 	'<cmd>lua _vifm_toggle()<CR>',
 	{ noremap = true, silent = true, desc = '[v]ifm file manager' }
 )
-
 
 -- <---Telescope Setup--->
 
@@ -329,4 +345,3 @@ vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { de
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
-
