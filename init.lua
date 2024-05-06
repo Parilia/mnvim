@@ -16,7 +16,8 @@ vim.opt.copyindent = true
 vim.opt.smartindent = true
 vim.o.breakindent = true
 
-vim.opt.tabstop = 2
+vim.opt.tabstop = 8
+vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 
@@ -64,7 +65,6 @@ vim.keymap.set('n', '<C-Tab>', ':cnext')
 -- html format  https://github.com/threedaymonk/htmlbeautifier
 vim.keymap.set('n', ',html', ':! htmlbeautifier %<CR>')
 
-
 -- <---User Defined Commands--->
 
 -- Edit this file
@@ -76,7 +76,6 @@ vim.api.nvim_create_user_command('Zshrc', ':e ~/.zshrc', {})
 -- Add html template from CWD
 vim.api.nvim_create_user_command('Template', ':read template.html', {})
 
-
 -- <---Spell checker--->
 
 vim.opt.spell = true
@@ -85,16 +84,15 @@ vim.opt.spelllang = 'en_gb'
 -- Toggle spell checker
 vim.keymap.set('n', '<leader>s', ':set spell!<cr>')
 
-
 -- <---Highlight on yank--->
 
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
 vim.api.nvim_create_autocmd('TextYankPost', {
-	callback = function()
-		vim.highlight.on_yank()
-	end,
-	group = highlight_group,
-	pattern = '*',
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+  group = highlight_group,
+  pattern = '*',
 })
 
 vim.api.nvim_set_hl(0, 'YankHighlight', { bg = '#a9b665' })
@@ -105,203 +103,223 @@ vim.api.nvim_set_hl(0, 'YankHighlight', { bg = '#a9b665' })
 
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
-	vim.fn.system {
-		'git',
-		'clone',
-		'--filter=blob:none',
-		'https://github.com/folke/lazy.nvim.git',
-		'--branch=stable', -- latest stable release
-		lazypath,
-	}
+  vim.fn.system {
+    'git',
+    'clone',
+    '--filter=blob:none',
+    'https://github.com/folke/lazy.nvim.git',
+    '--branch=stable', -- latest stable release
+    lazypath,
+  }
 end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
 
-	-- Vim Wiki
-	{ 'vimwiki/vimwiki' },
+  -- Vim Wiki
+  { 'vimwiki/vimwiki' },
 
-	-- "gc" to comment visual regions/lines
-	{ 'numToStr/Comment.nvim', opts = {} },
+  -- "gc" to comment visual regions/lines
+  { 'numToStr/Comment.nvim', opts = {} },
 
-	-- Whichkey
-	{
-		'folke/which-key.nvim',
-		opts = {
-			show_keys = false,
-			triggers_blacklist = {
-				n = { '<leader>' },
-			},
-		},
-	},
-
-	-- Colour Scheme
-	{
-		'f4z3r/gruvbox-material.nvim',
-		name = 'gruvbox-material',
-		lazy = false,
-		priority = 1000,
-		opts = {
-			italics = false, -- enable italics in general
-			comments = { italics = false },
-			background = { transparent = true }, -- sets bg to transparent
-			float = {
-				force_background = false, -- force background on floats even when background.transparent is set
-				background_color = nil, -- set color for float backgrounds. If nil, uses the default color set
-				-- by the colorscheme
-			},
-		},
-	},
-
-
--- <---Autocompletion--->
-	{
-		'windwp/nvim-ts-autotag',
-		opts = {},
-	},
-	{
-		'windwp/nvim-autopairs',
-		event = 'InsertEnter',
-		opts = {
-		  disable_filetype = { 'TelescopePrompt', 'spectre_panel', 'vim' }
+  -- Whichkey
+  {
+    'folke/which-key.nvim',
+    opts = {
+      show_keys = false,
+      triggers_blacklist = {
+        n = { '<leader>' },
+      },
     },
-	},
+  },
 
--- <---Syntax Highlighting--->
-	{
-		'nvim-treesitter/nvim-treesitter',
-		build = ':TSUpdate',
-		config = function()
-			local configs = require 'nvim-treesitter.configs'
+  -- Colour Scheme
+  {
+    'f4z3r/gruvbox-material.nvim',
+    name = 'gruvbox-material',
+    lazy = false,
+    priority = 1000,
+    opts = {
+      italics = false, -- enable italics in general
+      comments = { italics = false },
+      background = { transparent = true }, -- sets bg to transparent
+      float = {
+        force_background = false, -- force background on floats even when background.transparent is set
+        background_color = nil, -- set color for float backgrounds. If nil, uses the default color set
+        -- by the colorscheme
+      },
+    },
+  },
 
-			configs.setup {
-				ensure_installed = { 'c', 'lua', 'vim', 'vimdoc', 'query', 'elixir', 'heex', 'javascript', 'html' },
-				sync_install = false,
-				highlight = { enable = true },
-				indent = { enable = true },
-			}
-		end,
-	},
+  -- <---Autocompletion--->
+  {
+    'windwp/nvim-ts-autotag',
+    opts = {},
+  },
+  {
+    'windwp/nvim-autopairs',
+    event = 'InsertEnter',
+    opts = {
+      disable_filetype = { 'TelescopePrompt', 'spectre_panel', 'vim' },
+    },
+  },
 
+  -- <---Syntax Highlighting--->
+  {
+    'nvim-treesitter/nvim-treesitter',
+    build = ':TSUpdate',
+    config = function()
+      local configs = require 'nvim-treesitter.configs'
 
-	{
-		'nvim-lualine/lualine.nvim',
-		opts = {
-			options = {
-				icons_enabled = true,
-				theme = 'gruvbox-material',
-				component_separators = '|',
-				section_separators = '',
-			},
-		},
-	},
+      configs.setup {
+        ensure_installed = { 'c', 'lua', 'vim', 'vimdoc', 'query', 'elixir', 'heex', 'javascript', 'html' },
+        sync_install = false,
+        highlight = { enable = true },
+        indent = { enable = true },
+      }
+    end,
+  },
 
-	
-	{
-		'nvim-telescope/telescope.nvim',
-		tag = '0.1.6',
-		dependencies = { 'nvim-lua/plenary.nvim' },
-	},
+  -- <---Formatting--->
+  {
+    'stevearc/conform.nvim',
+    opts = {
+      formatters_by_ft = {
+        lua = { 'stylua' },
+      },
+      format_on_save = {
+        -- These options will be passed to conform.format()
+        timeout_ms = 500,
+        lsp_fallback = true,
+      },
+    },
+  },
 
-	
+  {
+    'nvim-lualine/lualine.nvim',
+    opts = {
+      options = {
+        icons_enabled = true,
+        theme = 'gruvbox-material',
+        component_separators = '|',
+        section_separators = '',
+      },
+    },
+  },
 
-	{
-		'lewis6991/gitsigns.nvim',
-		opts = {
-			signs = {
-				add = { text = '+' },
-				change = { text = '~' },
-				delete = { text = '_' },
-				topdelete = { text = '‾' },
-				changedelete = { text = '~' },
-			},
-		},
-	},
+  {
+    'nvim-telescope/telescope.nvim',
+    tag = '0.1.6',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+  },
 
--- <---Toggle Term--->
+  {
+    'lewis6991/gitsigns.nvim',
+    opts = {
+      signs = {
+        add = { text = '+' },
+        change = { text = '~' },
+        delete = { text = '_' },
+        topdelete = { text = '‾' },
+        changedelete = { text = '~' },
+      },
+    },
+  },
 
-	{
-		'akinsho/toggleterm.nvim',
-		version = '*',
-		opts = {
-			shell = 'zsh',
-		},
-	},
+  -- <---Toggle Term--->
 
-	-- Flatten, Stops nested sessions
-	{
-		'willothy/flatten.nvim',
-		lazy = false,
-		priority = 1001,
-		opts = function()
-			---@type Terminal?
-			local saved_terminal
+  {
+    'akinsho/toggleterm.nvim',
+    version = '*',
+    opts = {
+      shell = 'zsh',
+    },
+  },
 
-			return {
-				window = {
-					open = 'alternate',
-				},
-				callbacks = {
-					should_block = function(argv)
-						-- Note that argv contains all the parts of the CLI command, including
-						-- Neovim's path, commands, options and files.
-						-- See: :help v:argv
+  -- Flatten, Stops nested sessions
+  {
+    'willothy/flatten.nvim',
+    lazy = false,
+    priority = 1001,
+    opts = function()
+      ---@type Terminal?
+      local saved_terminal
 
-						-- In this case, we would block if we find the `-b` flag
-						-- This allows you to use `nvim -b file1` instead of
-						-- `nvim --cmd 'let g:flatten_wait=1' file1`
-						return vim.tbl_contains(argv, '-b')
+      return {
+        window = {
+          open = 'alternate',
+        },
+        callbacks = {
+          should_block = function(argv)
+            -- Note that argv contains all the parts of the CLI command, including
+            -- Neovim's path, commands, options and files.
+            -- See: :help v:argv
 
-						-- Alternatively, we can block if we find the diff-mode option
-						-- return vim.tbl_contains(argv, "-d")
-					end,
-					pre_open = function()
-						local term = require 'toggleterm.terminal'
-						local termid = term.get_focused_id()
-						saved_terminal = term.get(termid)
-					end,
-					post_open = function(bufnr, winnr, ft, is_blocking)
-						if is_blocking and saved_terminal then
-							-- Hide the terminal while it's blocking
-							saved_terminal:close()
-						else
-							-- If it's a normal file, just switch to its window
-							vim.api.nvim_set_current_win(winnr)
+            -- In this case, we would block if we find the `-b` flag
+            -- This allows you to use `nvim -b file1` instead of
+            -- `nvim --cmd 'let g:flatten_wait=1' file1`
+            return vim.tbl_contains(argv, '-b')
 
-							-- If we're in a different wezterm pane/tab, switch to the current one
-							-- Requires willothy/wezterm.nvim
-							--require("wezterm").switch_pane.id(
-							--tonumber(os.getenv("WEZTERM_PANE"))
-							--)
-						end
+            -- Alternatively, we can block if we find the diff-mode option
+            -- return vim.tbl_contains(argv, "-d")
+          end,
+          pre_open = function()
+            local term = require 'toggleterm.terminal'
+            local termid = term.get_focused_id()
+            saved_terminal = term.get(termid)
+          end,
+          post_open = function(bufnr, winnr, ft, is_blocking)
+            if is_blocking and saved_terminal then
+              -- Hide the terminal while it's blocking
+              saved_terminal:close()
+            else
+              -- If it's a normal file, just switch to its window
+              vim.api.nvim_set_current_win(winnr)
 
-						-- If the file is a git commit, create one-shot autocmd to delete its buffer on write
-						-- If you just want the toggleable terminal integration, ignore this bit
-						if ft == 'gitcommit' or ft == 'gitrebase' then
-							vim.api.nvim_create_autocmd('BufWritePost', {
-								buffer = bufnr,
-								once = true,
-								callback = vim.schedule_wrap(function()
-									vim.api.nvim_buf_delete(bufnr, {})
-								end),
-							})
-						end
-					end,
-					block_end = function()
-						-- After blocking ends (for a git commit, etc), reopen the terminal
-						vim.schedule(function()
-							if saved_terminal then
-								saved_terminal:open()
-								saved_terminal = nil
-							end
-						end)
-					end,
-				},
-			}
-		end,
-	},
+              -- If we're in a different wezterm pane/tab, switch to the current one
+              -- Requires willothy/wezterm.nvim
+              --require("wezterm").switch_pane.id(
+              --tonumber(os.getenv("WEZTERM_PANE"))
+              --)
+            end
 
-	-- Plugins Above this line
+            -- If the file is a git commit, create one-shot autocmd to delete its buffer on write
+            -- If you just want the toggleable terminal integration, ignore this bit
+            if ft == 'gitcommit' or ft == 'gitrebase' then
+              vim.api.nvim_create_autocmd('BufWritePost', {
+                buffer = bufnr,
+                once = true,
+                callback = vim.schedule_wrap(function()
+                  vim.api.nvim_buf_delete(bufnr, {})
+                end),
+              })
+            end
+          end,
+          block_end = function()
+            -- After blocking ends (for a git commit, etc), reopen the terminal
+            vim.schedule(function()
+              if saved_terminal then
+                saved_terminal:open()
+                saved_terminal = nil
+              end
+            end)
+          end,
+        },
+      }
+    end,
+  },
+
+  -- <---LSP--->
+
+  { 'folke/neodev.nvim', opts = {} },
+  { 'williamboman/mason.nvim' },
+  { 'williamboman/mason-lspconfig.nvim' },
+  { 'neovim/nvim-lspconfig' },
+  { 'hrsh7th/nvim-cmp' },
+  { 'hrsh7th/cmp-nvim-lsp' },
+  { 'L3MON4D3/LuaSnip' },
+
+  -- Plugins Above this line
 }, {}) -- Closes require('lazy').setup({
 -- Configs Below this line
 
@@ -312,14 +330,14 @@ local Terminal = require('toggleterm.terminal').Terminal
 local vifm = Terminal:new { cmd = 'vifm -c view', hidden = true, direction = 'float' }
 
 function _vifm_toggle()
-	vifm:toggle()
+  vifm:toggle()
 end
 
 vim.api.nvim_set_keymap(
-	'n',
-	'<leader>e',
-	'<cmd>lua _vifm_toggle()<CR>',
-	{ noremap = true, silent = true, desc = '[v]ifm file manager' }
+  'n',
+  '<leader>e',
+  '<cmd>lua _vifm_toggle()<CR>',
+  { noremap = true, silent = true, desc = '[v]ifm file manager' }
 )
 
 -- <---Telescope Setup--->
@@ -331,11 +349,11 @@ pcall(require('telescope').load_extension, 'fzf')
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
 vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
 vim.keymap.set('n', '<leader>/', function()
-	-- You can pass additional configuration to telescope to change theme, layout, etc.
-	require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-		winblend = 10,
-		previewer = false,
-	})
+  -- You can pass additional configuration to telescope to change theme, layout, etc.
+  require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+    winblend = 10,
+    previewer = false,
+  })
 end, { desc = '[/] Fuzzily search in current buffer' })
 
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').git_files, { desc = 'Search [G]it [F]iles' })
@@ -345,3 +363,28 @@ vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { de
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
+
+-- <---LSP Config--->
+
+-- IMPORTANT: make sure to setup neodev BEFORE lspconfig
+require('neodev').setup {
+  -- add any options here, or leave empty to use the default settings
+}
+
+local lspconfig = require 'lspconfig'
+lspconfig.lua_ls.setup {
+  -- on_attach, etc.
+  settings = {
+    Lua = {
+      -- completion, runtime, workspace, etc.
+      diagnostics = {
+        globals = { 'vim' },
+        undefined_global = false, -- remove this from diag!
+        missing_parameters = false, -- missing fields :)
+      },
+    },
+  },
+}
+
+require('mason').setup {}
+require('mason-lspconfig').setup {}
