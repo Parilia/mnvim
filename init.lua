@@ -65,6 +65,9 @@ vim.keymap.set('n', '<C-Tab>', ':cnext')
 -- html format  https://github.com/threedaymonk/htmlbeautifier
 vim.keymap.set('n', ',html', ':! htmlbeautifier %<CR>')
 
+-- Toggle Colours in code
+vim.keymap.set('n', '<leader>ct', ':ColorizerToggle<cr>')
+
 -- <---User Defined Commands--->
 
 -- Edit this file
@@ -94,8 +97,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = highlight_group,
   pattern = '*',
 })
-
-vim.api.nvim_set_hl(0, 'YankHighlight', { bg = '#a9b665' })
 
 -- <---Plugins--->
 
@@ -140,16 +141,18 @@ require('lazy').setup({
     lazy = false,
     priority = 1000,
     opts = {
-      italics = false, -- enable italics in general
+      italics = false,
       comments = { italics = false },
-      background = { transparent = true }, -- sets bg to transparent
+      background = { transparent = true },
       float = {
-        force_background = false, -- force background on floats even when background.transparent is set
-        background_color = nil, -- set color for float backgrounds. If nil, uses the default color set
-        -- by the colorscheme
+        force_background = false,
+        background_color = nil,
       },
     },
   },
+
+  -- Show Colours in code
+  { 'norcalli/nvim-colorizer.lua', opts = {} },
 
   -- <---Autocompletion--->
   {
@@ -186,6 +189,7 @@ require('lazy').setup({
     opts = {
       formatters_by_ft = {
         lua = { 'stylua' },
+        html = { 'htmlbeautifier' },
       },
       format_on_save = {
         -- These options will be passed to conform.format()
@@ -363,6 +367,17 @@ vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { de
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
+
+require('telescope').setup {
+  defaults = {
+    mappings = {
+      i = {
+        ['<C-u>'] = false,
+        ['<c-d>'] = require('telescope.actions').delete_buffer,
+      },
+    },
+  },
+}
 
 -- <---LSP Config--->
 
