@@ -44,7 +44,7 @@ vim.o.clipboard = 'unnamedplus'
 -- <---Key Bindings--->
 
 -- buffer navigation
-vim.keymap.set('n', '<Tab>', ':bnext <CR>') -- Tab goes to next buffer
+vim.keymap.set('n', '<Tab>', ':bnext <CR>')       -- Tab goes to next buffer
 vim.keymap.set('n', '<S-Tab>', ':bprevious <CR>') -- Shift+Tab goes to previous buffer
 
 -- Soft word-wrap
@@ -68,10 +68,20 @@ vim.keymap.set('n', ',html', ':! htmlbeautifier %<CR>')
 -- Toggle Colours in code
 vim.keymap.set('n', '<leader>ct', ':ColorizerToggle<cr>')
 
+-- Annoying prism.js for < and >
+
+vim.keymap.set('n', '<leader>,', 'xi&lt;<esc>')
+vim.keymap.set('n', '<leader>.', 'xi&gt;<esc>')
+
+-- <---Snippits--->
+
+-- Code snippit
+vim.keymap.set('n', ',c', ':read ~/.config/nvim/snippits/code.html<cr> 26li')
+
 -- <---User Defined Commands--->
 
 -- Edit this file
-vim.api.nvim_create_user_command('Init', ':e ~/.config/mnvim/init.lua', {})
+vim.api.nvim_create_user_command('Init', ':e ~/.config/nvim/init.lua', {})
 
 -- Edit .zshrc
 vim.api.nvim_create_user_command('Zshrc', ':e ~/.zshrc', {})
@@ -152,7 +162,7 @@ require('lazy').setup({
   },
 
   -- Show Colours in code
-  { 'norcalli/nvim-colorizer.lua', opts = {} },
+  { 'norcalli/nvim-colorizer.lua',      opts = {} },
 
   -- <---Autocompletion--->
   {
@@ -315,7 +325,7 @@ require('lazy').setup({
 
   -- <---LSP--->
 
-  { 'folke/neodev.nvim', opts = {} },
+  { 'folke/neodev.nvim',                opts = {} },
   { 'williamboman/mason.nvim' },
   { 'williamboman/mason-lspconfig.nvim' },
   { 'neovim/nvim-lspconfig' },
@@ -394,7 +404,7 @@ lspconfig.lua_ls.setup {
       -- completion, runtime, workspace, etc.
       diagnostics = {
         globals = { 'vim' },
-        undefined_global = false, -- remove this from diag!
+        undefined_global = false,   -- remove this from diag!
         missing_parameters = false, -- missing fields :)
       },
     },
