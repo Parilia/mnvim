@@ -186,6 +186,9 @@ require('lazy').setup({
         sync_install = false,
         highlight = { enable = true },
         indent = { enable = true },
+        auto_install = true,
+        ignore_install = {},
+        modules = {},
       }
     end,
   },
