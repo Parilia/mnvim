@@ -62,13 +62,10 @@ vim.keymap.set('n', '<C-s>', ':w<cr>>')
 -- Select next file in quickfix list
 vim.keymap.set('n', '<C-Tab>', ':cnext')
 
--- html format  https://github.com/threedaymonk/htmlbeautifier
-vim.keymap.set('n', ',html', ':! htmlbeautifier %<CR>')
-
 -- Toggle Colours in code
 vim.keymap.set('n', '<leader>ct', ':ColorizerToggle<cr>')
 
--- Annoying prism.js for < and >
+-- Annoying prism.js for < and >, place cursor over characters in normal mode and press leader < or >
 
 vim.keymap.set('n', '<leader>,', 'xi&lt;<esc>')
 vim.keymap.set('n', '<leader>.', 'xi&gt;<esc>')
