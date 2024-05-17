@@ -56,9 +56,6 @@ vim.keymap.set('n', '<leader>r', ':%s/')
 -- Exit search in buffer
 vim.keymap.set('n', '<esc>', ':noh<cr>', { silent = true })
 
--- Save
-vim.keymap.set('n', '<C-s>', ':w<cr>>')
-
 -- Select next file in quickfix list
 vim.keymap.set('n', '<C-Tab>', ':cnext')
 
@@ -126,6 +123,8 @@ require('lazy').setup({
 
   -- Vim Wiki
   { 'vimwiki/vimwiki' },
+
+
 
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },
@@ -413,3 +412,20 @@ lspconfig.lua_ls.setup {
 
 require('mason').setup {}
 require('mason-lspconfig').setup {}
+
+-- <---Colour Scheme Overrides--->
+
+-- Highlight on yank
+vim.api.nvim_set_hl(0, "IncSearch", { bg = "#a9b665" })
+
+
+-- <---VimWiki Config--->
+vim.api.nvim_set_hl(0, "VimwikiHeader1", { bold = true, ctermfg = 0, fg = '#ea6962' })
+vim.api.nvim_set_hl(0, "VimwikiHeader2", { bold = true, ctermfg = 0, fg = '#e78a4e' })
+vim.api.nvim_set_hl(0, "VimwikiHeader3", { bold = true, ctermfg = 0, fg = '#d8a657' })
+vim.api.nvim_set_hl(0, "VimwikiHeader4", { bold = true, ctermfg = 0, fg = '#a9b665' })
+vim.api.nvim_set_hl(0, "VimwikiHeader5", { bold = true, ctermfg = 0, fg = '#7daea3' })
+vim.api.nvim_set_hl(0, "VimwikiHeader6", { bold = true, ctermfg = 0, fg = '#d3869b' })
+vim.api.nvim_set_hl(0, "VimwikiPre", { ctermfg = 0, fg = '#89b482' })
+vim.api.nvim_set_hl(0, "VimwikiListTodo", { ctermfg = 0, fg = '#ea6962' })
+vim.api.nvim_set_hl(0, "VimwikiCellSeparator", { ctermfg = 0, fg = '#928374' })
