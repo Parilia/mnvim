@@ -48,10 +48,10 @@ vim.keymap.set('n', '<Tab>', ':bnext <CR>')       -- Tab goes to next buffer
 vim.keymap.set('n', '<S-Tab>', ':bprevious <CR>') -- Shift+Tab goes to previous buffer
 
 -- Soft word-wrap
-vim.keymap.set('n', '<leader>lb', ':set wrap!<cr>')
+vim.keymap.set('n', '<leader>lb', ':set wrap!<cr>', { desc = 'Word Wrap' })
 
 -- Replace in whole file, :%s/foo/bar/g
-vim.keymap.set('n', '<leader>r', ':%s/')
+vim.keymap.set('n', '<leader>r', ':%s/', { desc = 'Replace in File %s/foo/bar/g' })
 
 -- Exit search in buffer
 vim.keymap.set('n', '<esc>', ':noh<cr>', { silent = true })
@@ -60,12 +60,12 @@ vim.keymap.set('n', '<esc>', ':noh<cr>', { silent = true })
 vim.keymap.set('n', '<C-Tab>', ':cnext')
 
 -- Toggle Colours in code
-vim.keymap.set('n', '<leader>ct', ':ColorizerToggle<cr>')
+vim.keymap.set('n', '<leader>ct', ':ColorizerToggle<cr>', { desc = '[C]olour [T]oggle' })
 
 -- Annoying prism.js for < and >, place cursor over characters in normal mode and press leader < or >
 
-vim.keymap.set('n', '<leader>,', 'xi&lt;<esc>')
-vim.keymap.set('n', '<leader>.', 'xi&gt;<esc>')
+vim.keymap.set('n', '<leader>,', 'xi&lt;<esc>', { desc = '<' })
+vim.keymap.set('n', '<leader>.', 'xi&gt;<esc>', { desc = '>' })
 
 -- <---Snippits--->
 
@@ -158,7 +158,7 @@ require('lazy').setup({
   },
 
   -- Show Colours in code
-  { 'norcalli/nvim-colorizer.lua',      opts = {} },
+  { 'norcalli/nvim-colorizer.lua' },
 
   -- <---Autocompletion--->
   {
@@ -373,7 +373,7 @@ vim.keymap.set('n', '<leader>sg', require('telescope.builtin').git_files, { desc
 vim.keymap.set('n', '<leader>f', require('telescope.builtin').find_files, { desc = '[F]ind [F]iles' })
 vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
 vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
-vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
+vim.keymap.set('n', '<leader>g', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
 
