@@ -41,6 +41,11 @@ vim.opt.smartcase = true
 
 vim.o.clipboard = 'unnamedplus'
 
+-- Needs to be set before loading plugin
+vim.g.vimwiki_ext2syntax = {
+  ['.wiki'] = 'default',
+}
+
 -- <---Key Bindings--->
 
 -- buffer navigation
@@ -123,8 +128,6 @@ require('lazy').setup({
 
   -- Vim Wiki
   { 'vimwiki/vimwiki' },
-
-
 
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },
@@ -420,6 +423,17 @@ vim.api.nvim_set_hl(0, "IncSearch", { bg = "#a9b665" })
 
 
 -- <---VimWiki Config--->
+
+vim.g.vimwiki_list = {
+  {
+    path = '~/vimwiki',
+    syntax = 'default',
+    ext = 'wiki'
+  }
+}
+vim.g.vimwiki_global_ext = 0
+vim.g.vimwiki_automatic_nested_syntaxes = 1
+
 vim.api.nvim_set_hl(0, "VimwikiHeader1", { bold = true, ctermfg = 0, fg = '#ea6962' })
 vim.api.nvim_set_hl(0, "VimwikiHeader2", { bold = true, ctermfg = 0, fg = '#e78a4e' })
 vim.api.nvim_set_hl(0, "VimwikiHeader3", { bold = true, ctermfg = 0, fg = '#d8a657' })
