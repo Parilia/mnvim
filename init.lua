@@ -43,8 +43,21 @@ vim.o.clipboard = 'unnamedplus'
 
 -- Needs to be set before loading plugin
 vim.g.vimwiki_ext2syntax = {
-  ['.wiki'] = 'default',
+  ['.md'] = 'markdown',
+  ['.markdown'] = 'markdown',
+  ['.mdown'] = 'markdown',
 }
+
+
+vim.g.vimwiki_list = {
+  {
+    path = '~/vimwiki',
+    syntax = 'markdown',
+    ext = 'md'
+  }
+}
+vim.g.vimwiki_global_ext = 0
+vim.g.vimwiki_automatic_nested_syntaxes = 1
 
 -- <---Key Bindings--->
 
@@ -124,7 +137,9 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+
 require('lazy').setup({
+
 
   -- Vim Wiki
   { 'vimwiki/vimwiki' },
@@ -335,9 +350,11 @@ require('lazy').setup({
   { 'hrsh7th/cmp-nvim-lsp' },
   { 'L3MON4D3/LuaSnip' },
 
+
   -- Plugins Above this line
 }, {}) -- Closes require('lazy').setup({
 -- Configs Below this line
+
 
 -- <---Toggle Term Windows--->
 
@@ -424,15 +441,6 @@ vim.api.nvim_set_hl(0, "IncSearch", { bg = "#a9b665" })
 
 -- <---VimWiki Config--->
 
-vim.g.vimwiki_list = {
-  {
-    path = '~/vimwiki',
-    syntax = 'default',
-    ext = 'wiki'
-  }
-}
-vim.g.vimwiki_global_ext = 0
-vim.g.vimwiki_automatic_nested_syntaxes = 1
 
 vim.api.nvim_set_hl(0, "VimwikiHeader1", { bold = true, ctermfg = 0, fg = '#ea6962' })
 vim.api.nvim_set_hl(0, "VimwikiHeader2", { bold = true, ctermfg = 0, fg = '#e78a4e' })
