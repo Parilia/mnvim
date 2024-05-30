@@ -433,6 +433,7 @@ lspconfig.lua_ls.setup {
 require('mason').setup {}
 require('mason-lspconfig').setup {}
 
+
 -- <---Colour Scheme Overrides--->
 
 -- Highlight on yank
@@ -440,7 +441,6 @@ vim.api.nvim_set_hl(0, "IncSearch", { bg = "#a9b665" })
 
 
 -- <---VimWiki Config--->
-
 
 vim.api.nvim_set_hl(0, "VimwikiHeader1", { bold = true, ctermfg = 0, fg = '#ea6962' })
 vim.api.nvim_set_hl(0, "VimwikiHeader2", { bold = true, ctermfg = 0, fg = '#e78a4e' })
