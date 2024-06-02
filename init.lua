@@ -41,6 +41,7 @@ vim.opt.smartcase = true
 
 vim.o.clipboard = 'unnamedplus'
 
+-- <---VimWiki--->
 -- Needs to be set before loading plugin
 vim.g.vimwiki_ext2syntax = {
   ['.md'] = 'markdown',
@@ -48,13 +49,12 @@ vim.g.vimwiki_ext2syntax = {
   ['.mdown'] = 'markdown',
 }
 
-
 vim.g.vimwiki_list = {
   {
     path = '~/vimwiki',
     syntax = 'markdown',
-    ext = 'md'
-  }
+    ext = 'md',
+  },
 }
 vim.g.vimwiki_global_ext = 0
 vim.g.vimwiki_automatic_nested_syntaxes = 1
@@ -62,7 +62,7 @@ vim.g.vimwiki_automatic_nested_syntaxes = 1
 -- <---Key Bindings--->
 
 -- buffer navigation
-vim.keymap.set('n', '<Tab>', ':bnext <CR>')       -- Tab goes to next buffer
+vim.keymap.set('n', '<Tab>', ':bnext <CR>') -- Tab goes to next buffer
 vim.keymap.set('n', '<S-Tab>', ':bprevious <CR>') -- Shift+Tab goes to previous buffer
 
 -- Soft word-wrap
@@ -137,9 +137,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-
 require('lazy').setup({
-
 
   -- Vim Wiki
   { 'vimwiki/vimwiki' },
@@ -350,11 +348,9 @@ require('lazy').setup({
   { 'hrsh7th/cmp-nvim-lsp' },
   { 'L3MON4D3/LuaSnip' },
 
-
   -- Plugins Above this line
 }, {}) -- Closes require('lazy').setup({
 -- Configs Below this line
-
 
 -- <---Toggle Term Windows--->
 
@@ -423,7 +419,7 @@ lspconfig.lua_ls.setup {
       -- completion, runtime, workspace, etc.
       diagnostics = {
         globals = { 'vim' },
-        undefined_global = false,   -- remove this from diag!
+        undefined_global = false, -- remove this from diag!
         missing_parameters = false, -- missing fields :)
       },
     },
@@ -433,21 +429,19 @@ lspconfig.lua_ls.setup {
 require('mason').setup {}
 require('mason-lspconfig').setup {}
 
-
 -- <---Colour Scheme Overrides--->
 
 -- Highlight on yank
-vim.api.nvim_set_hl(0, "IncSearch", { bg = "#a9b665" })
-
+vim.api.nvim_set_hl(0, 'IncSearch', { bg = '#a9b665' })
 
 -- <---VimWiki Config--->
 
-vim.api.nvim_set_hl(0, "VimwikiHeader1", { bold = true, ctermfg = 0, fg = '#ea6962' })
-vim.api.nvim_set_hl(0, "VimwikiHeader2", { bold = true, ctermfg = 0, fg = '#e78a4e' })
-vim.api.nvim_set_hl(0, "VimwikiHeader3", { bold = true, ctermfg = 0, fg = '#d8a657' })
-vim.api.nvim_set_hl(0, "VimwikiHeader4", { bold = true, ctermfg = 0, fg = '#a9b665' })
-vim.api.nvim_set_hl(0, "VimwikiHeader5", { bold = true, ctermfg = 0, fg = '#7daea3' })
-vim.api.nvim_set_hl(0, "VimwikiHeader6", { bold = true, ctermfg = 0, fg = '#d3869b' })
-vim.api.nvim_set_hl(0, "VimwikiPre", { ctermfg = 0, fg = '#89b482' })
-vim.api.nvim_set_hl(0, "VimwikiListTodo", { ctermfg = 0, fg = '#ea6962' })
-vim.api.nvim_set_hl(0, "VimwikiCellSeparator", { ctermfg = 0, fg = '#928374' })
+vim.api.nvim_set_hl(0, 'VimwikiHeader1', { bold = true, ctermfg = 0, fg = '#ea6962' })
+vim.api.nvim_set_hl(0, 'VimwikiHeader2', { bold = true, ctermfg = 0, fg = '#e78a4e' })
+vim.api.nvim_set_hl(0, 'VimwikiHeader3', { bold = true, ctermfg = 0, fg = '#d8a657' })
+vim.api.nvim_set_hl(0, 'VimwikiHeader4', { bold = true, ctermfg = 0, fg = '#a9b665' })
+vim.api.nvim_set_hl(0, 'VimwikiHeader5', { bold = true, ctermfg = 0, fg = '#7daea3' })
+vim.api.nvim_set_hl(0, 'VimwikiHeader6', { bold = true, ctermfg = 0, fg = '#d3869b' })
+vim.api.nvim_set_hl(0, 'VimwikiPre', { ctermfg = 0, fg = '#89b482' })
+vim.api.nvim_set_hl(0, 'VimwikiListTodo', { ctermfg = 0, fg = '#ea6962' })
+vim.api.nvim_set_hl(0, 'VimwikiCellSeparator', { ctermfg = 0, fg = '#928374' })
