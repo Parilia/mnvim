@@ -1,5 +1,5 @@
 # neovim
-My personal neovim config
+My personal neovim config will no longer receive updates to github, for future updates go here: https://git.parilia.dev/Parilia/nvim
 
 ## Requiremtns
 <a href="https://neovim.io/">neovim</a> 0.9+<br>
